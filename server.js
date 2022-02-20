@@ -1,5 +1,6 @@
 const express = require("express")
-const mysql = require('mysql2');
+const mysql = require('mysql2')
+const ejs = require('ejs')
 const app = express()
 
 app.use(express.json())
@@ -14,13 +15,14 @@ const connection = mysql.createConnection({
   database: 'hotlist-dev'
 });
 
-app.get('/api/hello_world', function (req, res, next) {
+
+app.get('/api/hello_world', function (req, res) {
     res.json({
         hello: 'world'
     })
 })
 
-app.get('/api/get_user/:id', async function (req, res, next) {
+app.get('/api/get_user/:id', function (req, res) {
     const userId = req.params.id
     // console.log(`I want the user ${userId}`)
     connection.execute(
@@ -36,6 +38,17 @@ app.get('/api/get_user/:id', async function (req, res, next) {
     )
 })
 
-const port = process.env.PORT || 5000
+
+// app.set('view engine', 'ejs')
+// app.set('views', __dirname + '/views')
+
+// app.get("/users", function (req, res) {
+//     res.send(ejs.render())
+// })
+
+
+
+
+const port = process.env.PORT || 5001
 app.listen(port)
 console.log(`Listening to port : ${port}`)
