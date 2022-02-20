@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Merlyn's app</title>
+    </head>
+    <body>
+
+        <h1>Welcome to merlin's apps</h1>
+        <img src="/images/salt-bae.jpeg" style="width: 200px"/>
+
+        <div>
+
+            <br/>
+            <br/>
+            <input type="text" value="2" class="input-user-id"/>
+            <button class="get-user-info-button">
+                Get User Info
+            </button>
+
+            <br/>
+            <br/>
+            <div>Résultat :</div>
+            <div 
+                class="user-infos-results"
+                style="padding: 10px; background: rgb(179, 179, 179)"
+            >
+
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document
+                    .querySelector('.get-user-info-button')
+                    .addEventListener('click', async function () {
+                        const userId = document.querySelector('.input-user-id').value
+                        const res = await fetch(`/api/get_user/${userId}`)
+                        const body = await res.json()
+                        document
+                            .querySelector('.user-infos-results')
+                            .innerHTML = `
+                            id : ${body.id} <br/>
+                            firstname : ${body.firstname} <br/>
+                            lastname : ${body.lastname} <br/>
+                        `
+                    })
+            })
+        </script>
+    </body>
+</html>
